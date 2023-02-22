@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.jms.service</groupId>
+  <artifactId>jms-wms</artifactId>
+  <version>0.0.1</version>
+  <packaging>jar</packaging>
+
+  <name>jms-wms</name>
+  <url>http://maven.apache.org</url>
+
+
+	<parent>
+		<groupId>com.jms</groupId>
+		<artifactId>father</artifactId>
+		<version>0.0.1</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.jms</groupId>
+			<artifactId>facebean</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.11</version>
+		</dependency>
+
+
+	</dependencies>
+
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+					<mainClass>com.mypro.serviceOne.ServerOneApp</mainClass>
+					<source>1.8</source>
+					<target>1.8</target>
+					<layout>ZIP</layout>
+					<includes>
+						<include>
+							<groupId>com.mypro</groupId>
+							<artifactId>serviceOne</artifactId>
+						</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/lib</outputDirectory>
+							<excludeTransitive>false</excludeTransitive>
+							<stripVersion>false</stripVersion>
+							<includeScope>runtime</includeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
