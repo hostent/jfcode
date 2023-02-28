@@ -41,8 +41,8 @@ public class UserRequest extends HttpServletRequestWrapper {
 		String json = this.getBodyString(request);
 		body = json.getBytes();
 		
-		logger.info("调用地址:"+request.getRequestURI());
-		logger.info("调用参数:"+json);
+		logger.debug("调用地址:"+request.getRequestURI());
+		logger.debug("调用参数:"+json);
 		
 		
 		requestData = JSONObject.parseObject(json, RequestData.class);

@@ -13,7 +13,7 @@ public abstract class ServiceBeanContainer {
 	static Set<Class<?>> beanSet = new HashSet<Class<?>>();
 	
 	
-	public static Class<?> getClass(String micro,String className)
+	public static Class<?> getClass32(String micro,String className)
 	{
 		Set<Class<?>> set = beanSet;
 		return null;

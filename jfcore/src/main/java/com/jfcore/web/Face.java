@@ -25,8 +25,8 @@ public class Face {
 			Class<?> returnCls)
 	{
 		 
-		logger.info("微服务地址:"+ microUrl );
-		logger.info("微服务参数:"+ JsonBody );
+		logger.debug("微服务地址:"+ microUrl );
+		logger.debug("微服务参数:"+ JsonBody );
 		
 		
 		headers.add("callId", CallerContext.getCallerID());

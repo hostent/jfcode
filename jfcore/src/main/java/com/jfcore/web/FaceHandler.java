@@ -17,8 +17,11 @@ public class FaceHandler implements InvocationHandler {
 	
 
 	
+	Class<?> _cls=null;
 	
-	public FaceHandler() {
+	
+	public FaceHandler(Class<?> cls) {
+		_cls =cls;
 
 	}
 	
@@ -29,13 +32,13 @@ public class FaceHandler implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
 		
-		String packagePath = method.getDeclaringClass().getPackage().getName();
+		String packagePath = _cls.getPackage().getName();
 		
 		int ind = packagePath.indexOf(".service.")+9;
 		
 		String micro = packagePath.substring(ind, packagePath.length());
 				
-		String microUrl = "http://"+micro+"/"+ method.getDeclaringClass().getSimpleName()+"/"+method.getName();
+		String microUrl = "http://"+micro+"/"+ _cls.getSimpleName()+"/"+method.getName();
 		
 		
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();

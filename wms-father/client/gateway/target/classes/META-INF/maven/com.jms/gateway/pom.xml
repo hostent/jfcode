@@ -39,7 +39,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<fork>true</fork>
-					<mainClass>com.mypro.gateway.GateWayApp</mainClass>
+					<mainClass>com.jms.gateway.GateWayApp</mainClass>
 					<source>1.8</source>
 					<target>1.8</target>
 					<layout>ZIP</layout>
