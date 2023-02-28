@@ -7,10 +7,9 @@ public interface IQuery<T> {
 
     
 
-    T Get(Object id);
+    T get(Object id);
 
-    T GetUnique(Object unique);
-    
+    T getUnique(Object unique);    
     
     List<T> getList(List<Integer> ids);
     

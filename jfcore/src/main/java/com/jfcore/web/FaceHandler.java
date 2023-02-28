@@ -4,7 +4,9 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
+import java.util.List;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -17,8 +19,11 @@ public class FaceHandler implements InvocationHandler {
 	
 
 	
+	Class<?> _cls=null;
 	
-	public FaceHandler() {
+	
+	public FaceHandler(Class<?> cls) {
+		_cls =cls;
 
 	}
 	
@@ -29,13 +34,13 @@ public class FaceHandler implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
 		
-		String packagePath = method.getDeclaringClass().getPackage().getName();
+		String packagePath = _cls.getPackage().getName();
 		
 		int ind = packagePath.indexOf(".service.")+9;
 		
 		String micro = packagePath.substring(ind, packagePath.length());
 				
-		String microUrl = "http://"+micro+"/"+ method.getDeclaringClass().getSimpleName()+"/"+method.getName();
+		String microUrl = "http://"+micro+"/"+ _cls.getSimpleName()+"/"+method.getName();
 		
 		
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
@@ -92,7 +97,19 @@ public class FaceHandler implements InvocationHandler {
  
 		
 		RestTemplate restTemplate = ServiceListener.getSingletonBean(RestTemplate.class);
-		ResponseEntity<?> res = Face.CallService(restTemplate , microUrl, headers, JSONObject.toJSONString(requestData),method.getReturnType());
+		ResponseEntity<?> res = Face.CallService(restTemplate , microUrl, headers, JSONObject.toJSONString(requestData),method.getGenericReturnType());
+		
+		
+		
+		//ParameterizedTypeReference tyoe = new ParameterizedTypeReference<T>() {
+		//};
+		
+		//ParameterizedTypeReference.forType(method.getGenericReturnType())
+		//new ParameterizedTypeReference<List<UtProjectAtt>>() {
+        //}
+		
+		//Arrays.as
+		//if()
 		
 		return res.getBody();
 	}

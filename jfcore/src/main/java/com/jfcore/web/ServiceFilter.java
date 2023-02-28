@@ -1,6 +1,7 @@
 package com.jfcore.web;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -23,14 +24,25 @@ public class ServiceFilter  implements Filter {
 			throws IOException, ServletException {
 		
 		
-		String callId = ((HttpServletRequest)request).getHeader("callId");
+		//String callId = ((HttpServletRequest)request).getHeader("callId");
 		
-		CallerContext.setCallerID(callId);
+		//String userInfoJson = URLDecoder.decode(((HttpServletRequest)request).getHeader("userInfo"), "utf-8") ;
+		
+		//System.out.println(userInfoJson);
+		
+		
+		//UserContext.setJson(userInfoJson);
 		 
 
 		try {
 			
 			UserRequest userRequest = new UserRequest((HttpServletRequest)request);
+			
+			CallerContext.setCallerID(userRequest.requestData.getCallId());
+			UserContext.setJson(userRequest.requestData.getToken());
+			
+			
+//			System.out.println("("+userRequest.getRequestURL()+")UserContext:"+UserContext.getJson() );
 						
 			chain.doFilter(userRequest, response);
 			
@@ -41,6 +53,7 @@ public class ServiceFilter  implements Filter {
 		}		
 		finally {
 			CallerContext.dispose();
+			UserContext.dispose();
 		}
 		
 		

@@ -66,7 +66,7 @@ public abstract class ServiceListener implements  BeanDefinitionRegistryPostProc
 		Class<?>[] interfaces = new Class[] { mapperInterface };
 		
 		
-		FaceHandler faceHandler=new FaceHandler();
+		FaceHandler faceHandler=new FaceHandler(mapperInterface);
 		
 		@SuppressWarnings("unchecked")
 		T t = (T)Proxy.newProxyInstance(classLoader, interfaces, faceHandler);

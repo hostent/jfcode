@@ -2,13 +2,13 @@ package com.jfcore.frame;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Result {
+public class Result<T> {
 	
 	private int status;
 	
 	private String message;
 	
-	private Object data;
+	private T data;
 
 	public int getStatus() {
 		return status;
@@ -26,18 +26,18 @@ public class Result {
 		this.message = message;
 	}
 
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 
 	
-	public static Result get(int status,String message,Object data)
+	public static <T> Result<T> get(int status,String message,T data)
 	{
-		Result result = new Result();
+		Result<T> result = new Result<T>();
 		result.setData(data);
 		result.setMessage(message);
 		result.setStatus(status);
@@ -45,12 +45,12 @@ public class Result {
 		return result;
 	}
 
-	public static Result get(int status,String message)
+	public static  <T> Result<T> get(int status,String message)
 	{
 		return get(status,message,null);
 	}
 	
-	public static Result get(int status)
+	public static <T> Result<T> get(int status)
 	{
 		return get(status,null,null);
 	}
@@ -61,28 +61,28 @@ public class Result {
 		return getStatus()==1;
 	}
 	
-	public static Result succeed()
+	public static  <T> Result<T> succeed()
 	{
 		return get(1);
 	}
-	public static Result succeed(Object data)
+	public static <T> Result<T> succeed(T data)
 	{
 		return get(1,"",data);
 	}
-	public static Result failure()
+	public static <T> Result<T> failure()
 	{
 		return get(-1);
 	}
-	public static Result failure(String message)
+	public static  <T>  Result<T> failure(String message)
 	{
 		return get(-1,message);
 	}
-	public static Result failure(int status, String message)
+	public static  <T> Result<T> failure(int status, String message)
 	{
 		return get(status,message);
 	}
 	
-	public static Result failure(int status,String message,Object data)
+	public static <T> Result<T> failure(int status,String message,T data)
 	{
 		return get(status,message,data);
 	}

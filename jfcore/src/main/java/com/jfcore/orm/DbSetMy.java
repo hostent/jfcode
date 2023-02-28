@@ -29,7 +29,7 @@ public class DbSetMy<T> implements ISet<T>,IDbQuery<T> {
  
 
 	@Override
-	public Object Add(T t) {
+	public Object add(T t) {
 
 		String sql = "insert into `{table}` ( {columns} ) values ( {values} );";  
 																				 
@@ -75,11 +75,11 @@ public class DbSetMy<T> implements ISet<T>,IDbQuery<T> {
 		query.resetCache();
  
 
-		return returnId;
+		return returnId.toString();
 	}
 
 	@Override
-	public int Delete(Object id) {
+	public int delete(Object id) {
 
 		String sql = "delete from `{table}` where `{key}`=?";
 
@@ -109,7 +109,7 @@ public class DbSetMy<T> implements ISet<T>,IDbQuery<T> {
 	}
 
 	@Override
-	public int Update(T t) {
+	public int update(T t) {
 
 		String sql = "update `{table}` set {updateStr} where {key}='{id}'";
 		sql = sql.replace("{table}", _tEntity.tableName);
@@ -145,81 +145,88 @@ public class DbSetMy<T> implements ISet<T>,IDbQuery<T> {
 
 
 	@Override
-	public IDbQuery<T> Where(String exp, Object... par) {
-
-		return query.Where(exp, par);
-	}
-
-	@Override
-	public IDbQuery<T> OrderBy(String exp) {
-
-		return query.OrderBy(exp);
-	}
-
-	@Override
-	public IDbQuery<T> OrderByDesc(String exp) {
-
-		return query.OrderByDesc(exp);
-	}
-
-	@Override
-	public IDbQuery<T> Limit(int form, int length) {
-
-		return query.Limit(form, length);
-	}
-
-	@Override
-	public IDbQuery<T> Distinct() {
-
-		return query.Distinct();
-	}
-
-	@Override
-	public T First() {
-
-		return query.First();
-	}
-
-	@Override
-	public List<T> ToList() {
-
-		return query.ToList();
-	}
-
-	@Override
-	public long Count() {
-
-		return query.Count();
-	}
-
-	@Override
-	public boolean Exist() {
-
-		return query.Exist();
-	}
-
-	@Override
-	public T Get(Object id) {
-
-		return query.Get(id);
-	}
-
-	@Override
-	public T GetUnique(Object unique) {
-
-		return query.GetUnique(unique);
-	}
-	
-	@Override
-	public Map<String, Double> Sum(String sumColum, String groupColum) {
-		
-		return query.Sum(sumColum, groupColum);
-	}
-	
-	@Override
-	public IDbQuery<T> Select(String... cols) {
+	public IDbQuery<T> where(String exp, List<?> list) {
 		 
-		return query.Select(cols);
+		return query.where(exp, list);
+	}
+
+	
+	@Override
+	public IDbQuery<T> where(String exp, Object... par) {
+
+		return query.where(exp, par);
+	}
+
+	@Override
+	public IDbQuery<T> orderBy(String exp) {
+
+		return query.orderBy(exp);
+	}
+
+	@Override
+	public IDbQuery<T> orderByDesc(String exp) {
+
+		return query.orderByDesc(exp);
+	}
+
+	@Override
+	public IDbQuery<T> limit(int form, int length) {
+
+		return query.limit(form, length);
+	}
+
+	@Override
+	public IDbQuery<T> distinct() {
+
+		return query.distinct();
+	}
+
+	@Override
+	public T first() {
+
+		return query.first();
+	}
+
+	@Override
+	public List<T> toList() {
+
+		return query.toList();
+	}
+
+	@Override
+	public long count() {
+
+		return query.count();
+	}
+
+	@Override
+	public boolean exist() {
+
+		return query.exist();
+	}
+
+	@Override
+	public T get(Object id) {
+
+		return query.get(id);
+	}
+
+	@Override
+	public T getUnique(Object unique) {
+
+		return query.getUnique(unique);
+	}
+	
+	@Override
+	public Map<String, Double> sum(String sumColum, String groupColum) {
+		
+		return query.sum(sumColum, groupColum);
+	}
+	
+	@Override
+	public IDbQuery<T> select(String... cols) {
+		 
+		return query.select(cols);
 	}
 	
 
@@ -267,8 +274,9 @@ public class DbSetMy<T> implements ISet<T>,IDbQuery<T> {
 		 
 		return _tEntity.tableName;
 	}
-	
 
+
+ 
 	
 
 

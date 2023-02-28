@@ -3,6 +3,8 @@ package com.jfcore.frame;
 import java.util.Date;
 import java.util.UUID;
 
+import com.jfcore.tools.IdGenerater;
+
  
 
 public class CallerContext {
@@ -32,7 +34,7 @@ public class CallerContext {
 
 	public static void setCallerID() {
 		
-		CallerID.set(UUID.randomUUID().toString());
+		CallerID.set(IdGenerater.newId());
 		CallerTime.set(new Date());
 		
  

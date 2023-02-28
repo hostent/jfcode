@@ -2,9 +2,9 @@ package com.jfcore.orm;
 
 public interface ICommand<T> {
 	
-    int Delete(Object id);
+    int delete(Object id);
 
-    int Update(T t);
+    int update(T t);
 
-	Object Add(T t);
+	Object add(T t);
 }

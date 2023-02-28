@@ -145,6 +145,7 @@ public class GatewayFilter  implements Filter {
 		}
 		finally {
 			CallerContext.dispose();
+			UserContext.dispose();
 		}
 	}
 

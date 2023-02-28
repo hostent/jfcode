@@ -6,28 +6,30 @@ import java.util.Map;
  
 public interface IDbQuery<T> {
 
-	IDbQuery<T> Where(String exp,Object... par);
-
-	IDbQuery<T> OrderBy(String exp);
-
-	IDbQuery<T> OrderByDesc(String exp);
-
-	IDbQuery<T> Limit(int form, int length);
-
-	IDbQuery<T> Distinct();
+	IDbQuery<T> where(String exp,Object... par);
 	
-	IDbQuery<T> Select(String... cols);
+	IDbQuery<T> where(String exp,List<?> list);
 
-    T First();
-    
-    List<T> ToList();
-    
-    
-    Map<String,Double> Sum(String sumColum,String groupColum);
+	IDbQuery<T> orderBy(String exp);
 
-    long Count();
+	IDbQuery<T> orderByDesc(String exp);
 
-    boolean Exist();
+	IDbQuery<T> limit(int form, int length);
+
+	IDbQuery<T> distinct();
+	
+	IDbQuery<T> select(String... cols);
+
+    T first();
+    
+    List<T> toList();
+    
+    
+    Map<String,Double> sum(String sumColum,String groupColum);
+
+    long count();
+
+    boolean exist();
     
 //    <E> E  FirstSelect(Class<E> cla);
 //    

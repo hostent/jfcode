@@ -227,10 +227,13 @@ public class Entity<T> {
 		List<Object> list = new ArrayList<Object>();
 		
 		Map<String, Method> map = Entity.entityGetMap(_type);
-		for (String key : map.keySet()) {
-			
+		for (String keyv : map.keySet()) {
+			if((!isIncludeId) && keyv.equals(key))
+			{
+				 continue;
+			}
 			try {
-				list.add(map.get(key).invoke(t, null));
+				list.add(map.get(keyv).invoke(t, null));
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
  
 				e.printStackTrace();

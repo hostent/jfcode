@@ -26,7 +26,7 @@ public class RecordMap {
 		}
 		// String
 		else if (paramType == String.class) {
-			rs.getString(key);
+			t = rs.getString(key);
 			return t;
 		}
 
@@ -65,6 +65,10 @@ public class RecordMap {
 		else if (paramType == Long.class || paramType == Long.class) {
 			t = rs.getLong(key);
 			return t;
+		}		
+		// StringBuffer
+		else if (paramType == StringBuffer.class) {
+			return new StringBuffer(rs.getString(key));
 		}
 
 		return t;
@@ -79,6 +83,10 @@ public class RecordMap {
 		}		 
 
 		Object t = rs.getObject(key);
+		if(t==null)
+		{
+			return null;
+		}
 
 		// Integer
 		if (paramType == Integer.class || paramType == int.class) {

@@ -1,9 +1,11 @@
 package com.jfcore.codeBuild;
 
  
+import java.util.Date;
 import java.util.List;
 
 import com.jfcore.orm.IdAuto;
+ 
 
 public class Entity {
 	
@@ -36,12 +38,15 @@ public class Entity {
 	{
 		String format =""
 				+ "\r\nimport com.jfcore.orm.Column;"
-				+ "\r\nimport com.jfcore.orm.IdAuto"
-				+ "\r\nimport com.jfcore.orm.Table"
+				+ "\r\nimport com.jfcore.orm.IdAuto;"
+				+ "\r\nimport com.jfcore.orm.Table;"
 				+ "\r\n"
+				+ "\r\nimport lombok.Getter;"
+				+ "\r\nimport lombok.Setter;"
 				+ "\r\n"
+				+ "\r\n@Getter @Setter"
 				+ "\r\n@IdAuto"
-				+ "\r\n@Table (Name=\"{name}\",Key=\"id\", UniqueKey = \"xxx\")"
+				+ "\r\n@Table (name=\"{name}\",key=\"id\", uniqueKey = \"xxx\")"
 				+ "\r\npublic class {nameBig}  {"
 				+ "\r\n"
 				+ "\r\n{cols}}";

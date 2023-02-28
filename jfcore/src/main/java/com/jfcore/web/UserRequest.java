@@ -41,11 +41,13 @@ public class UserRequest extends HttpServletRequestWrapper {
 		String json = this.getBodyString(request);
 		body = json.getBytes();
 		
-		logger.info("调用地址:"+request.getRequestURI());
-		logger.info("调用参数:"+json);
+		logger.debug("调用地址:"+request.getRequestURI());
+		logger.debug("调用参数:"+json);
 		
 		
 		requestData = JSONObject.parseObject(json, RequestData.class);
+		
+		
 	}
 	
 
@@ -56,7 +58,7 @@ public class UserRequest extends HttpServletRequestWrapper {
 		
 		if(requestData.getPars().containsKey(name))
 		{
-			return (String) requestData.getPars().get(name);
+			return  requestData.getPars().get(name).toString();
 		}
 		return null;
 		
@@ -126,7 +128,7 @@ public class UserRequest extends HttpServletRequestWrapper {
 	private byte[] body;
 	
 	
-	RequestData requestData;
+	public RequestData requestData;
 
 
     @Override

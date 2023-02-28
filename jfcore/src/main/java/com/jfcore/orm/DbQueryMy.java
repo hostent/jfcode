@@ -32,7 +32,7 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	
 
 
-	private String whereExp;
+	private String whereExp="";
 	private String orderExp;
 
 	private String selectExp="*";
@@ -47,11 +47,36 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	private String trackSql = "select {column} from {table} {where} {order} {limit}";
 
 	private List<Object> sqlArgs = new ArrayList<Object>();
+	
+
+	@Override
+	public IDbQuery<T> where(String exp, List<?> list) {
+		
+		if(list==null || list.size()==0)
+		{
+			return this;
+		}
+		
+		String  str ="";
+		for (Object item : list) {
+			
+			str=str+"'"+item+"',";
+			
+		}
+		
+		str = str.substring(0, str.length()-1);
+		
+		exp = exp.replace("?", str);
+		 
+		whereExp = whereExp+ exp;
+		return this;
+	}
+
 
 	 
-	public IDbQuery<T> Where(String exp, Object... par) {
+	public IDbQuery<T> where(String exp, Object... par) {
 
-		whereExp = exp;
+		whereExp = whereExp+ exp;
 		if (par != null && par.length > 0) {
 			for (int i = 0; i < par.length; i++) {
 				sqlArgs.add(par[i]);
@@ -62,7 +87,7 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	}
 
 	@Override
-	public IDbQuery<T> OrderBy(String exp) {
+	public IDbQuery<T> orderBy(String exp) {
 		orderExp = exp;
 		order = "asc";
 
@@ -70,28 +95,28 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	}
 
 	@Override
-	public IDbQuery<T> OrderByDesc(String exp) {
+	public IDbQuery<T> orderByDesc(String exp) {
 		order = "desc";
 		orderExp = exp;
 		return this;
 	}
 
 	@Override
-	public IDbQuery<T> Limit(int form, int length) {
+	public IDbQuery<T> limit(int form, int length) {
 		limitForm = form;
 		limitLength = length;
 		return this;
 	}
 
 	@Override
-	public IDbQuery<T> Distinct() {
+	public IDbQuery<T> distinct() {
 		this.distinct = "distinct";
 
 		return this;
 	}
 
 	@Override
-	public T First() {
+	public T first() {
 		limitForm = 0;
 		limitLength = 1;
 
@@ -129,7 +154,7 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	
 	// 缓存只做list，单条查询，速度非常快，不需要缓存
 	@Override
-	public List<T> ToList() {
+	public List<T> toList() {
 
 		BuildColumns(null);
 		BuildWhere(null, null);
@@ -174,7 +199,7 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	}
 
 	@Override
-	public long Count() {
+	public long count() {
 		BuildColumns(" count(0) ");
 		BuildWhere(null, null);
 		BuildOrder(null);
@@ -198,13 +223,13 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	}
 
 	@Override
-	public boolean Exist() {
+	public boolean exist() {
 
-		return Count() > 0;
+		return count() > 0;
 	}
 
 	@Override
-	public T Get(Object id) {
+	public T get(Object id) {
 
 		String whereStr = String.format(" where %s=? ", _tEntity.key);
 
@@ -243,7 +268,7 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	}
 
 	@Override
-	public T GetUnique(Object unique) {
+	public T getUnique(Object unique) {
 
 		String whereStr = String.format(" where %s=? ", _tEntity.uniqueKey);
 
@@ -365,7 +390,7 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	}
 
 	@Override
-	public Map<String, Double> Sum(String sumColum, String groupColum) {
+	public Map<String, Double> sum(String sumColum, String groupColum) {
 		BuildColumns(" sum("+sumColum+") as sumColum, "+groupColum +" as keyColum " );
 		BuildWhere(null, null);
 		BuildOrder("");
@@ -393,7 +418,7 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 	}
 
 	@Override
-	public IDbQuery<T> Select(String... cols) {
+	public IDbQuery<T> select(String... cols) {
 		for (String str : cols) {
 			
 			selectExp = selectExp + "," + str;
@@ -424,7 +449,7 @@ public class DbQueryMy<T> implements IQuery<T> ,IDbQuery<T>{
 		
 		str= str.substring(1,str.length());
 		
-		return this.Where("id in ("+str+")").ToList();
+		return this.where("id in ("+str+")").toList();
 	}
 
 	
